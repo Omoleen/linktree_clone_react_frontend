@@ -1,8 +1,9 @@
 import {ProfileLink} from "../Profile/ProfileLink";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 const Profile = () => {
     const navigate = useNavigate()
@@ -10,6 +11,11 @@ const Profile = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [username, setUsername] = useState('')
     let token = JSON.parse(localStorage.getItem('accessToken'))
+    const tooltip = (
+      <Tooltip id="tooltip">
+        <strong>Share your links!</strong>
+      </Tooltip>
+    );
     const config = {
         headers: {
             authorization: `Bearer ${token}`
@@ -41,6 +47,13 @@ const Profile = () => {
         <>
         <div className='border border-bottom d-flex align-items-center justify-content-end px-3' style={{height: '50px'}}>
             <div className='d-flex align-items-center gap-2 fw-bold' style={{}}>
+
+                <OverlayTrigger placement="left" overlay={tooltip}>
+                  <Link to={`/profile/${username}`}>
+                        <i className="bi bi-share"/>
+                    </Link>
+                </OverlayTrigger>
+
                 {username}
                 <img src={require('../../assets/img/profile.avif')} className='rounded-circle' width={30} height={30} alt={''}/>
                 <i className="bi bi-box-arrow-right" role='button' onClick={handleLogout}/>
