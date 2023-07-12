@@ -12,14 +12,14 @@ const ProfileLink = ({label, url, setLinks, id}) => {
     const handleSave = e => {
         if (id.length) {
             axios.patch(`${process.env.REACT_APP_BACKEND_URL}links/${id}`, link, config).then(response => {
-                console.log(response.data)
+                // console.log(response.data)
             }).catch(err => {
 
             })
 
         } else {
             axios.post(process.env.REACT_APP_BACKEND_URL + 'links', link, config).then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 setLinks(data => [...data, link])
                 setLink({label: '', url: '', id: ''})
             }).catch(err => {
@@ -30,12 +30,12 @@ const ProfileLink = ({label, url, setLinks, id}) => {
     const handleDelete = e => {
         if (id.length) {
             axios.delete(`${process.env.REACT_APP_BACKEND_URL}links/${id}`, config).then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 setLinks(links => {
                     let tempLinks = [...links]
-                    console.log(tempLinks)
+                    // console.log(tempLinks)
                     tempLinks = tempLinks.filter(tempLink => tempLink.label !== link.label)
-                    console.log(tempLinks, link)
+                    // console.log(tempLinks, link)
                     return tempLinks
                 })
             }).catch(err => {})

@@ -20,26 +20,24 @@ const Login = ({setLogin}) => {
     }
     const handleChange = e => {
         setLoginForm(data => ({...data, [e.target.name]: e.target.value}))
-        console.log(loginForm)
-        console.log(process.env.REACT_APP_BACKEND_URL)
     }
     const handleSubmit = e => {
         e.preventDefault()
         setIsLoading(true)
         axios.post(process.env.REACT_APP_BACKEND_URL + 'auth/login', loginForm).then(response => {
-            console.log(response)
+            // console.log(response)
             if (response.status === 200) {
-                console.log(response.data.accessToken)
+                // console.log(response.data.accessToken)
                 localStorage.setItem('accessToken', JSON.stringify(response.data.accessToken))
                 // console.log(JSON.parse(localStorage.getItem('accessToken')))
                 return navigate('profile')
             }
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
             if (err.response.status === 401) return setErrors([err.response.data])
             const tempErrors = err.response.data.error.map(error => error.msg)
             setErrors(tempErrors)
-            console.log(tempErrors)
+            // console.log(tempErrors)
         })
         setIsLoading(false)
     }

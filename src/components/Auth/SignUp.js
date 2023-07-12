@@ -25,18 +25,18 @@ const SignUp = ({setLogin}) => {
         e.preventDefault()
         setIsLoading(true)
         axios.post(process.env.REACT_APP_BACKEND_URL + 'auth/register', signupForm).then(response => {
-            console.log(response.status)
+            // console.log(response.status)
             if (response.status === 200) {
-                console.log(response.data.accessToken)
+                // console.log(response.data.accessToken)
                 localStorage.setItem('accessToken', JSON.stringify(response.data.accessToken))
                 // console.log(JSON.parse(localStorage.getItem('accessToken')))
                 return navigate('profile')
             }
         }).catch(err => {
-            console.log(err.response.status)
+            // console.log(err.response.status)
             const tempErrors = err.response.data.error.map(error => error.msg)
             setErrors(tempErrors)
-            console.log(tempErrors)
+            // console.log(tempErrors)
         })
         setIsLoading(false)
     }
