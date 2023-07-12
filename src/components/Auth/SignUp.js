@@ -24,7 +24,7 @@ const SignUp = ({setLogin}) => {
     const handleSubmit = e => {
         e.preventDefault()
         setIsLoading(true)
-        axios.post('http://localhost:3001/auth/register', signupForm).then(response => {
+        axios.post(process.env.REACT_APP_BACKEND_URL + 'auth/register', signupForm).then(response => {
             console.log(response.status)
             if (response.status === 200) {
                 console.log(response.data.accessToken)
